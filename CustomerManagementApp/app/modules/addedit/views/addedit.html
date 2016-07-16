@@ -1,0 +1,77 @@
+﻿<style type="text/css">
+  .form-horizontal input.ng-invalid.ng-dirty {
+    border-color: #FA787E;
+  }
+
+  .form-horizontal input.ng-valid.ng-dirty {
+    border-color: #78FA89;
+  }
+</style>
+<div class="view">
+    <div class="container">
+        <div class="row">
+        <nav class= "navbar navbar-default" role= "navigation" >
+        <div class= "navbar-header" >
+        <a class= "navbar-brand" href= "#/customers"><i class="glyphicon glyphicon-th-large"></i> Customers List </a>
+        <a ng-show="user._id" class= "navbar-brand" href= "#/edit-customer/0"><i class="glyphicon glyphicon-plus"></i> Create Customer </a>
+        <a ng-show="user._id" class= "navbar-brand pull-right"><i class="glyphicon glyphicon-edit"></i> Currently Editing Customer Number: {{user._id}}</a>
+        </div>
+        </nav>
+        <header>
+            <h3>{{title}}</h3>
+        </header>
+        <div class="col-md-12">
+
+<form role="form" name="customerForm" class="form-horizontal" ng-submit="saveCustomer(user);">
+<div class="row">
+<div class= "form-group" ng-class="{error: customerForm.name.$invalid}">
+    <label class= "col-md-2"> Name </label>
+    <div class="col-md-4">
+    <input name="name" ng-model="user.name" type= "text" class= "form-control" placeholder="Your name" required/>
+    <span ng-show="customerForm.name.$dirty && customerForm.name.$invalid" class="help-inline">Name Required</span>
+    </div>
+</div>
+<div class= "form-group">
+    <label class= "col-md-2"> Email address {{customerForm.email.$error.email}}</label>
+    <div class="col-md-4">
+    <input name="email" ng-model="user.email" type= "email" class= "form-control" placeholder="Enter email" required/>
+    <span ng-show="customerForm.email.$dirty && customerForm.email.$invalid && !customerForm.email.$error.email" class="help-inline">Email Required</span>
+    <span ng-show="customerForm.email.$error.email" class="help-inline">Email is not valid</span>
+    </div>
+</div>
+<div class= "form-group">
+    <label class= "col-md-2">Company </label>
+    <div class="col-md-4">
+    <input ng-model="user.company.name" type= "text" class= "form-control" placeholder= "Company Name"/>
+    </div>
+</div>
+<div class= "form-group">
+    <label class= "col-md-2">City </label>
+    <div class="col-md-4">
+    <input ng-model="user.address.city" type= "text" class= "form-control" placeholder= "Current City"/>
+    </div>
+</div>
+<div class= "form-group">
+    <label class= "col-md-2">Phone Number</label>
+    <div class="col-md-4">
+        <input name="phone" ng-model="user.phone" type="text" class="form-control"
+               phone-validation placeholder="123-456-7890"  required/>
+        <span ng-show="customerForm.phone.$dirty && customerForm.phone.$invalid && !customerForm.phone.$error.numberValidator" class="help-inline">Phone number is required</span>
+        <span ng-show="customerForm.phone.$dirty && customerForm.phone.$error.numberValidator" class="help-inline">Phone number should contain 10 digit</span>
+    </div>
+</div>
+<div class= "form-group">
+    <label class= "col-md-2"></label>
+    <div class="col-md-4">
+    <a href="#/" class="btn">Cancel</a>
+        <button type="submit"  ng-disabled="isClean() || customerForm.$invalid"
+                class="btn btn-primary">{{buttonText}}</button>
+        <button ng-click="deleteCustomer(user)"
+                ng-show="user._id" class="btn btn-warning">Delete</button>
+    </div>
+</div>
+</div>
+</form>
+        </div></div>
+    </div>
+</div>
